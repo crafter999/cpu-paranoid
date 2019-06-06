@@ -22,12 +22,16 @@ npm install cpu-paranoid
 # Usage
 
 Init using 2 **crucial** arguments that controls the actual flow.  
-`updateInterval` : Set the fetching data frequency from `/proc/stat`. Use values bigger than 100 ms for 
+### updateInterval
+Set the fetching data frequency from `/proc/stat`. Use values bigger than 100 ms for 
 better stability.  
-`stabilizer` : Controls the average result value based on how many values should be considered. 
-Sometimes your CPU should reach 90% in less than 10 milliseconds so this is where stabilizer comes
+### stabilizer
+Controls the average result value based on how many values should be considered. 
+Sometimes your CPU may reach 90% in less than 10 milliseconds so this is where stabilizer comes
 in play and based on the previous values from the history it will find the right average value.
 If you want for example instant results use low stability values like 5.
+### percentage
+Get the actual data
 ```typescript
 import {CpuParanoid} from "cpu-paranoid";
 let stats = new CpuParanoid({updateInterval: 200,stabilizer: 50});
