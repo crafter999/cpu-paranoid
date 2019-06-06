@@ -1,0 +1,32 @@
+{
+  "name": "cpu-paranoid",
+  "version": "1.0.3",
+  "description": "Next-Gen  CPU monitor usage using /proc/stat",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crafter999/cpu-paranoid.git"
+  },
+  "keywords": [
+    "cpu",
+    "usage",
+    "cpu",
+    "usage",
+    "monitor",
+    "linux",
+    "system"
+  ],
+  "author": "crafter999",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/crafter999/cpu-paranoid/issues"
+  },
+  "homepage": "https://github.com/crafter999/cpu-paranoid#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^12.0.5"
+  }
+}
