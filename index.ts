@@ -1,7 +1,17 @@
 import * as fs from "fs";
 
 interface IOptions {
+   /**
+    * Set the fetching data frequency from /proc/stat.
+    * Use values bigger than 100 ms for better stability.
+    */
    updateInterval: number;
+   /**
+    * Controls the average result value based on how many values should be considered.
+    * Sometimes your CPU may reach 90% in less than 10 milliseconds so this is where stabilizer
+    * comes in play and based on the previous values from the history it will find the right average value.
+    * If you want for example instant results use low stability values like 5.
+    */
    stabilizer: number;
 }
 
@@ -14,12 +24,14 @@ export class CpuParanoid {
    private readonly options: IOptions = null;
    private oldValues: ITick = null;
    private _percentage: number = 0;
-   private history:Array<number> = [];
+   private history: Array<number> = [];
 
-   get percentage(){
+   /** Get the magic value */
+   get percentage() {
       return this._percentage.toFixed(2);
    }
-   set percentage(v:any){
+
+   set percentage(v: any) {
       this._percentage = v;
    }
 
@@ -53,18 +65,19 @@ export class CpuParanoid {
       };
    }
 
-   private stabilizer(value:number): number{
+   private stabilizer(value: number): number {
       this.history.shift();
       this.history.push(value);
-      let average:number = 0;
-      for (let v of this.history){
-         average+=v;
+      let average: number = 0;
+      for (let v of this.history) {
+         average += v;
       }
 
       // console.log(this.history);
-      return average/this.history.length;
+      return average / this.history.length;
    }
 
+   /** Start monitor for changes in an infinite loop.**/
    public async startMonitoring() {
       this.oldValues = await this.tick();
 
@@ -74,8 +87,8 @@ export class CpuParanoid {
          const diffTotal = (newValues.totalIdle + newValues.totalNonIdle) -
             (this.oldValues.totalNonIdle + this.oldValues.totalIdle);
          let p = (1000 * (diffTotal - diffIdle) / diffTotal + 8) / 10;
-         if (p>=100){
-            p=100
+         if (p >= 100) {
+            p = 100
          }
          this.percentage = this.stabilizer(p);
          this.oldValues = newValues;
