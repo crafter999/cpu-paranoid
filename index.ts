@@ -21,8 +21,8 @@ interface ITick {
 }
 
 export class CpuParanoid {
-   private readonly options: IOptions = null;
-   private oldValues: ITick = null;
+   private readonly options: IOptions;
+   private oldValues: ITick = { totalIdle: 0, totalNonIdle: 0 };
    private _percentage: number = 0;
    private history: Array<number> = [];
 
