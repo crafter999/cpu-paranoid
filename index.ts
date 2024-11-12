@@ -86,9 +86,10 @@ export class CpuParanoid {
          const diffIdle = newValues.totalIdle - this.oldValues.totalIdle;
          const diffTotal = (newValues.totalIdle + newValues.totalNonIdle) -
             (this.oldValues.totalNonIdle + this.oldValues.totalIdle);
-         let p = (1000 * (diffTotal - diffIdle) / diffTotal + 8) / 10;
+         let p = diffTotal > 0 ? (1000 * (diffTotal - diffIdle) / diffTotal + 8) / 10 : 0;
+         
          if (p >= 100) {
-            p = 100
+            p = 100;
          }
          this.percentage = this.stabilizer(p);
          this.oldValues = newValues;
