@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import { freemem, totalmem } from "node:os";
 
 interface IOptions {
    /**
@@ -94,5 +95,18 @@ export class CpuParanoid {
          this.percentage = this.stabilizer(p);
          this.oldValues = newValues;
       }, this.options.updateInterval);
+   }
+
+   public getMemoryUsage():number{
+      const totalMemory = totalmem();
+      const freeMemory = freemem();
+
+      // Calculate used memory in bytes
+      const usedMemory = totalMemory - freeMemory;
+
+      // Calculate memory usage percentage
+      const memoryUsagePercentage = (usedMemory / totalMemory) * 100;
+
+      return memoryUsagePercentage
    }
 }

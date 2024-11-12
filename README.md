@@ -3,7 +3,7 @@ CPU-paranoid is a next-gen reliable cpu usage monitor for Linux. It has 0 depend
 the /proc/stat kernel pseudo file to fetch the data. It uses a stabilizer for better results. 
 The lowest value is 0.8% and the bigger 100% just like htop.
 
-Tested on the following Linux Distros and boards using **Node.js v10.x.x**:
+Tested on the following Linux Distros and boards using **Node.js v10.x.x-22.x.x**:
 - Debian
 - CentOS
 - Fedora
@@ -49,6 +49,8 @@ Get the actual CPU value in a range between 0.8~100 just like htop.
 Start monitor for changes in an infinite loop.  
 *Don't forget to run this!*
 
+**● getMemoryUsage**(): `number`    
+Get memory usage. (No need to start monitoring)
 
 # Example
 ```typescript
